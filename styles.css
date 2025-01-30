@@ -164,5 +164,5 @@ button[type="submit"] {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #808080;
+    background-color: rgb(63, 63, 63);
 }

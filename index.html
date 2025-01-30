@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agenda de Casamentos</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+</head>
+
+<body>
+    <!-- Tela de Login -->
+    <div id="login-modal" class="modal">
+        <div class="login-content">
+            <h2>Acesso Restrito</h2>
+            <form id="login-form" onsubmit="return checkLogin(event)">
+                <div class="form-group">
+                    <label>Usuário:</label>
+                    <input type="text" id="username" required>
+                </div>
+                <div class="form-group">
+                    <label>Senha:</label>
+                    <input type="password" id="password" required>
+                </div>
+                <button type="submit">Entrar</button>
+                <p id="login-error" class="error-message"></p>
+            </form>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1 class="site-title">Agenda de Casamentos</h1>
+            <div class="header-controls">
+                <input type="text" class="search-bar" id="search-input" placeholder="Pesquisar por nomes dos noivos...">
+                <button class="new-schedule-button" onclick="openModal()">
+                    <i class="fas fa-plus"></i>
+                    Novo
+                </button>
+                <button class="logout-button" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Sair
+                </button>
+            </div>
+        </div>
+
+        <div class="weddings-container">
+            <div class="wedding-section today-section">
+                <h2>Casamentos de Hoje</h2>
+                <div id="today-weddings"></div>
+            </div>
+
+            <div class="wedding-section">
+                <h2>Próximos Casamentos</h2>
+                <div id="upcoming-weddings"></div>
+            </div>
+
+            <div class="wedding-section">
+                <h2>Casamentos Realizados</h2>
+                <div id="past-weddings"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Cadastro -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()" style="float:right;cursor:pointer">&times;</span>
+            <h2 id="form-title">Novo Agendamento</h2>
+            <form onsubmit="handleSubmit(event)">
+                <input type="hidden" id="wedding-id">
+                <div class="form-group">
+                    <label>Servidor Responsável:</label>
+                    <input type="text" id="servidor" required>
+                </div>
+                <div class="form-group">
+                    <label>Data do Casamento:</label>
+                    <input type="date" id="wedding-date" required>
+                </div>
+                <div class="form-group">
+                    <label>Horário:</label>
+                    <input type="time" id="wedding-time" required>
+                </div>
+                <div class="form-group">
+                    <label>Dia da Habilitação:</label>
+                    <input type="date" id="habilitation-date" required>
+                </div>
+                <div class="form-group">
+                    <label>Nome da Noiva:</label>
+                    <input type="text" id="bride-name" required>
+                </div>
+                <div class="form-group">
+                    <label>Nome do Noivo:</label>
+                    <input type="text" id="groom-name" required>
+                </div>
+                <button type="submit">Salvar</button>
+                <button type="button" onclick="cancelEdit()" style="margin-top: 10px; background-color: #6e6e6e;">Cancelar</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyCCTQBnXIXJzz5UB4Z2ehH7WEBwvp46akc",
+            authDomain: "agenda-a2ca4.firebaseapp.com",
+            projectId: "agenda-a2ca4",
+            storageBucket: "agenda-a2ca4.appspot.com",
+            messagingSenderId: "521009653955",
+            appId: "1:521009653955:web:992456588d46a998a19a76"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+    </script>
+    <script src="scripts.js"></script>
+</body>
+</html>
